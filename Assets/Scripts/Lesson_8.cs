@@ -2,31 +2,37 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- * Пользовательский интерфейс и GameObject.Find
+ * События OnCollision и OnTrigger 
+ * проявляющееся на объекте Cube 
+ * после соприкосновения с Wall 
+ * и GameObject.Find
  */
-
 public class Lesson_8 : MonoBehaviour
 {
     public GameObject instObj;
-    private int count;
+    private int count = 0;
     [SerializeField]
     private float speed = 4f;
     private Text text;
+    private float ZPos = .0f;
 
-    private void Start()
+    private void Awake()
     {
         text = GameObject.Find("Text").GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        text.text = other.gameObject.name + "  " + count++;
+        text.text = $"{other.gameObject.name}  {count++}";
     }
 
     private void Update()
     {
-        float zPoz = Input.GetAxis("Vertical");
+        ZPos = Input.GetAxis("Vertical");
+    }
 
-        instObj.transform.Translate(Vector3.forward * speed * zPoz * Time.deltaTime);
+    private void FixedUpdate()
+    {
+        instObj.transform.Translate(Vector3.forward * speed * ZPos);
     }
 }

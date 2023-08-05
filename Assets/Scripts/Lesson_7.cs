@@ -1,25 +1,23 @@
 using UnityEngine;
 
 /*
- * События OnCollision и OnTrigger
+ * Создаёт объект для Lesson_8
+ * События OnCollision и OnTrigger 
+ * проявляющееся на объекте Cube 
+ * после соприкосновения с Wall
  */
-
 public class Lesson_7 : MonoBehaviour
 {
-    public GameObject obj;
-    private GameObject inst_obj;
-    [SerializeField]
-    private float speed = 4f;
+    public GameObject Cube;
+    public GameObject Cilinder;
+    [HideInInspector]
+    public GameObject CloneObj;
 
     private void Start()
     {
-        inst_obj = Instantiate(obj, Vector3.zero, Quaternion.identity);
-    }
-
-    private void Update()
-    {
-        float zPoz = Input.GetAxis("Vertical");
-
-        inst_obj.transform.Translate(Vector3.forward * speed * zPoz * Time.deltaTime);
+        Instantiate(Cube, Vector3.zero, Quaternion.identity);
+        CloneObj = Instantiate(Cilinder, new Vector3(0, 7f), Quaternion.identity);
+        Cube.SetActive(true);
+        Cilinder.SetActive(true);
     }
 }

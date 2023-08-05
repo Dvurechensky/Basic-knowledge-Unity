@@ -3,29 +3,23 @@ using UnityEngine;
 /*
  * Отслеживание нажатий от пользователя
  */
-
 public class Lesson_4 : MonoBehaviour
 {
-    public GameObject gameObject;
+    public GameObject TransformObj;
     public float range = 5f, moveSpeed = 3f, turnSpeed = 40f;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        //float h = Input.GetAxis("Horizontal"); //Edit->ProjectSettings->InputManager (Стрелки влево направо и кнопки A D
-        //float xPos = h * range;
-        //gameObject.transform.position = new Vector3(xPos, 0, 0);
-
+        if(TransformObj == null) return;
         if (Input.GetKey(KeyCode.UpArrow))
-            gameObject.transform.Translate(Vector3.forward
-                                           * moveSpeed
-                                           * Time.deltaTime);
+            TransformObj.transform.Translate(Vector3.forward
+                                           * moveSpeed);
         if (Input.GetKey(KeyCode.DownArrow))
-            gameObject.transform.Translate(-Vector3.forward
-                                           * moveSpeed
-                                           * Time.deltaTime);
+            TransformObj.transform.Translate(-Vector3.forward
+                                           * moveSpeed);
         if (Input.GetKey(KeyCode.LeftArrow))
-            gameObject.transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
+            TransformObj.transform.Rotate(Vector3.up, -turnSpeed);
         if (Input.GetKey(KeyCode.RightArrow))
-            gameObject.transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
+            TransformObj.transform.Rotate(Vector3.up, turnSpeed);
     }
 }

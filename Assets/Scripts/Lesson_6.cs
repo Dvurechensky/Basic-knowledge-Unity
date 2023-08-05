@@ -4,50 +4,56 @@ using UnityEngine;
 /*
  * Корутины (Coroutines)
  */
-
 public class Lesson_6 : MonoBehaviour
 {
     public GameObject instObj;
     private void Start()
     {
-         Invoke("Inst", 2f);
+         Invoke("CreateObj", 2f);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            StartCoroutine(instObjects());
+            StartCoroutine(InstObjects());
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            StopCoroutine(instObjects());
+            StopCoroutine(InstObjects());
         }
     }
 
-    private void Inst()
+    private void CreateObj()
     {
-        Instantiate(instObj, new Vector3(-10, 10, 10), Quaternion.identity).GetComponent<Renderer>().material.color = Color.green;
+        var clone = Instantiate(instObj, new Vector3(-10, 10, 10), Quaternion.identity);
+        clone.GetComponent<Renderer>().material.color = Color.green;
+        ControllerLessons.Instance.Lesson_3.createObjList.Add(clone);
     }
 
-    private IEnumerator instObjects()
+    private IEnumerator InstObjects()
     {
         yield return new WaitForSeconds(1.5f);
-        Instantiate(instObj, new Vector3(10,10,10), Quaternion.identity).GetComponent<Renderer>().material.color = Color.red;
+        var clone_1 = Instantiate(instObj, new Vector3(10, 10, 10), Quaternion.identity);
+        clone_1.GetComponent<Renderer>().material.color = Color.red;
+        ControllerLessons.Instance.Lesson_3.createObjList.Add(clone_1);
         yield return new WaitForSeconds(1f);
-        Instantiate(instObj, new Vector3(-10, 10, 10), Quaternion.identity).GetComponent<Renderer>().material.color = Color.green;
+        var clone_2 = Instantiate(instObj, new Vector3(-10, 10, 10), Quaternion.identity);
+        clone_2.GetComponent<Renderer>().material.color = Color.green;
+        ControllerLessons.Instance.Lesson_3.createObjList.Add(clone_2);
         int k = 0;
-        while (k < 100)
+        while (k < 2)
         {
             k++;
-            Instantiate(instObj, 
-                new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50)), 
-                Quaternion.identity).
-                            GetComponent<Renderer>().material.color = 
-                            new Color(Random.Range(0, 1f), 
-                                        Random.Range(0, 1f), 
-                                        Random.Range(0, 1f),
-                                        Random.Range(0, 1f));
+            var clone_3 = Instantiate(instObj,
+                new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10)),
+                Quaternion.identity);
+            clone_3.GetComponent<Renderer>().material.color = 
+                        new Color(Random.Range(0, 1f), 
+                                    Random.Range(0, 1f), 
+                                    Random.Range(0, 1f),
+                                    Random.Range(0, 1f));
+            ControllerLessons.Instance.Lesson_3.createObjList.Add(clone_3);
             yield return new WaitForSeconds(0.3f);
         }
     }
